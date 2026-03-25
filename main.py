@@ -28,7 +28,7 @@ def get_db():
     finally:
         db.close()
         
-@app.get("/products",tags=['items'],response_model=List[ShowItemWithUser])
+@app.get("/products",tags=['items'])
 def get_all_products(db:Session = Depends(get_db)):
     from_db = db.query(database_models.ListItem).all()
     return from_db
@@ -62,7 +62,7 @@ def update_product(id:int,item:ListItem,db:Session = Depends(get_db)):
         return "Updated Successfully...."
     else:
         return "Product Not Found"
-@app.delete("/product",tags=['items'])
+@app.delete("/deleteproduct",tags=['items'])
 def delete_product(id:int,db:Session = Depends(get_db)):
     delete_item = db.query(database_models.ListItem).filter(database_models.ListItem.id == id).first()
     if delete_item:
